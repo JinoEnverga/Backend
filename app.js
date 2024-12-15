@@ -6,12 +6,19 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const userRoute = require('./routes/userRoute');
 const departmentRoutes = require('./routes/departmentRoutes');
-const courseRoutes = require('./routes/courseRoutes');  // Import course routes
-const studentsRoutes = require('./routes/studentsRoutes'); // Import students routes
+const courseRoutes = require('./routes/courseRoutes');
+const studentsRoutes = require('./routes/studentsRoutes');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+
+// Configure CORS
+const corsOptions = {
+    origin: 'https://jino-final-git-main-jinoenvergas-projects.vercel.app', // Replace with your frontend domain
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.get('/', function(req, res) {
     res.send("Jino Enverga, NCF");
@@ -21,8 +28,8 @@ app.get('/', function(req, res) {
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoute);
 app.use('/api/department', departmentRoutes);
-app.use('/api/course', courseRoutes);  // Include the course routes
-app.use('/api/students', studentsRoutes); // Add this line to include the students routes
+app.use('/api/course', courseRoutes);
+app.use('/api/students', studentsRoutes);
 
 const PORT = 8002;
 
